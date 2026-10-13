@@ -1,18 +1,23 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Document</title>
-        @vite('resources/css/app.css')
-    </head>
-    <body>
-        <button class="rounded-full bg-blue-500 hover:bg-blue-700 text-white font-serif py-5 px-7 rounded transition duration-300 ease-in-out transform hover:scale-110">
-            Awesome Button
-        </button>
-        <button class="rounded-full bg-green-500 hover:bg-green-700 text-white font-bold py-5 px-7 rounded transition duration-300 ease-in-out transform hover:scale-110">
-            Another Button
-        </button>
-
-    </body>
-</html>
+@extends('partials.layout')
+@section('content')
+    <div class="container mx-auto">
+        <h1>{{ __('Home Page') }}</h1>
+        {{ $posts->links() }}
+        <div class="grid grid-cols-4 gap-2">
+            @foreach ($posts as $post)
+                <div class="card bg-base-300 shadow-sm">
+                    {{-- <figure>
+                        <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" />
+                    </figure> --}}
+                    <div class="card-body">
+                        <h2 class="card-title">{{ $post->title }}</h2>
+                        <p>{{ $post->snippet }}</p>
+                        <div class="card-actions justify-end">
+                            <a href="{{ route('post', $post) }}" class="btn btn-primary">@lang('Read more')</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+@endsection
